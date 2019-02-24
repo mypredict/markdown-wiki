@@ -1,0 +1,56 @@
+.edit {
+  display: flex;
+  height: calc(100vh - 3rem);
+  padding-top: 3rem;
+  transition: padding 0.5s;
+
+  .edit-box {
+    box-sizing: border-box;
+    width: 50%;
+    height: 100%;
+    line-height: 1.6;
+    padding: 1rem 0.5rem 10rem 1rem;
+    resize: none;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: #333;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "微软雅黑";
+    letter-spacing: 1px;
+  }
+
+  .preview {
+    flex: 1;
+    padding: 1rem 0.5rem 10rem 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .dragLine {
+    position: relative;
+    width: 1rem;
+    background: #fff;
+    cursor: w-resize;
+    user-select: none;
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 5px;
+      height: 100%;
+      left: 0;
+      transition: background-color 0.5s;
+    }
+
+    &:hover:after {
+      background-color: #eee;
+    }
+  }
+}

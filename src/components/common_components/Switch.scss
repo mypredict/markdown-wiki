@@ -1,0 +1,31 @@
+button.switch {
+  position: relative;
+  width: 43px;
+  height: 24px;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  color: #33a3a2;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  .switch-circle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 2px;
+    left: 2px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: left 0.3s;
+  }
+
+  .label {
+    position: absolute;
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+}
