@@ -1,19 +1,17 @@
 import React from 'react';
 
 import Header from './components/Header';
-import DocMenu from './components/DocMenu';
-import UserMenu from './components/UserMenu';
+import Menu from './components/Menu';
 import Edit from './components/Edit';
-import DocUserContainer from './components/DocUserContainer';
+import LayerContainer from './components/LayerContainer';
 
 function App () {
   return (
     <div className="app">
       <Header />
-      <DocMenu />
-      <UserMenu />
+      <Menu />
       <Edit />
-      <DocUserContainer />
+      <LayerContainer />
     </div>
   )
 }

@@ -1,0 +1,96 @@
+.member-page {
+  width: 50%;
+  min-width: 30rem;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 6rem;
+
+    .head {
+      display: flex;
+      justify-content: space-between;
+      width: 23rem;
+      height: 6rem;
+
+      img {
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+      }
+    }
+
+    ul.message {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      list-style: none;
+      width: 15rem;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+
+      li {
+        height: 2rem;
+        line-height: 2;
+      }
+    }
+
+    .add-author {
+      position: relative;
+      width: 5rem;
+      height: 5rem;
+      user-select: none;
+
+      &:after {
+        position: absolute;
+        content: "复制链接成功";
+        left: 50%;
+        top: calc(100% + 0.5rem);
+        transform: translateX(-50%);
+        font-size: 0.8rem;
+        color: #33a3a2;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 1s ease-in 0.5s, top 1s ease-in;
+      }
+
+      &:active:after {
+        top: 100%;
+        opacity: 1;
+        transition: all 0s;
+      }
+
+      .button-add-author {
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        background: #fff;
+      }
+
+      .member-icon {
+        width: 100%;
+        height: 100%;
+        color: #ccc;
+      }
+    }
+  }
+
+  .member-container {
+    margin-top: 2rem;
+    box-sizing: border-box;
+  }
+}

@@ -2,23 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
 
+import DialogBox from './common_components/DialogBox';
 import './Edit.scss';
-import Loading from './common_components/Loading';
 
 function Edit (props) {
-  const {
-    lockingDocMenu,
-    toggleDocMenu,
-    lockingUserMenu,
-    toggleUserMenu
-  } = props;
+  const { lockingMenu, toggleMenu, versionNumber, userMessage, ducumentMessage } = props;
   const dragLine = useRef(null);
   const editBox = useRef(null);
   const [isMouseDown, setIsMouseDown] = useState(false);  // 鼠标在可以拖动
   const [mouseCoordinate, setMouseCoordinate] = useState(0);  // 鼠标按下时的X坐标
   const [remEditBoxWidth, setRemEditBoxWidth] = useState(0);  // 鼠标按下时编辑框宽度
+  const [dragLineBgc, setDragLineBgc] = useState(''); // 鼠标按下时拖动线背景色
   const [editBoxWidth, setEditBoxWidth] = useState('50%');  // 编辑框宽度
-  const [editBoxContent, setEditBoxContent] = useState(''); // 编辑框内容
+  const [editBoxContent, setEditBoxContent] = useState('');  // 编辑框内容
+  const [isInput, setIsInput] = useState(false);  // 输入框开始工作
 
   useEffect(() => {
     document.documentElement.addEventListener('mousedown', mouseDown);
@@ -31,12 +28,19 @@ function Edit (props) {
     };
   });
 
+  useEffect(() => {
+    if (ducumentMessage.users[versionNumber - 1] && !isInput) {
+      setEditBoxContent(ducumentMessage.users[versionNumber - 1].content);
+    }
+  });
+
   // 中间分界拖动
   function mouseDown (e) {
     if (e.target === dragLine.current) {
       setIsMouseDown(true);
       setMouseCoordinate(e.clientX);
       setRemEditBoxWidth(editBox.current.offsetWidth);
+      setDragLineBgc('#eee');
     }
   }
 
@@ -47,38 +51,93 @@ function Edit (props) {
   function mouseUp () {
     setIsMouseDown(false);
     setRemEditBoxWidth(editBox.current.offsetWidth);
+    setDragLineBgc('');
   }
+
+  function handleTextareaChange (e) {
+    setIsInput(true);
+    setEditBoxContent(e.target.value)
+    document.querySelectorAll('table').forEach((table) => {
+      if (!Array.from(table.parentNode.classList).includes('div-table')) {
+        const divElement = document.createElement('div');
+        divElement.className = 'div-table';
+        // table.parentNode.replaceChild(divElement, table);
+        // divElement.appendChild(table);
+        console.log(table.parentNode.className)
+      }
+    });
+  }
+
+  const [ dialogBoxDisplay, setDialogBoxDisplay ] = useState(false);
+  function handleSubmit (note) {
+    setDialogBoxDisplay(false);
+    if (note) {
+      const updateMessage = {
+        note,
+        joinURL: ducumentMessage.joinURL,
+        index: ducumentMessage.users.length + 1,
+        content: editBoxContent,
+        username: userMessage.name
+      }
+      fetch('/submit', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(updateMessage)
+      })
+        .then(response => response.text())
+        .then(data => {
+          if (data === 'submitSuccess') {
+            window.location.reload();
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
+  console.log('edit')
 
   return (
     <div
       className="edit"
-      style={{
-        paddingLeft: lockingDocMenu ? toggleDocMenu ? '5rem' : 0 : 0,
-        paddingRight: lockingUserMenu ? toggleUserMenu ? '5rem' : 0 : 0
-      }}
-    >
-      {/* <Loading /> */}
+      style={{ paddingLeft: lockingMenu ? toggleMenu ? "5rem" : 0 : 0 }}>
+      <DialogBox display={dialogBoxDisplay} input={true} tooltip={"请输入版本介绍信息"} callback={handleSubmit} />
       <textarea
         className="edit-box"
         ref={editBox}
         style={{width: editBoxWidth + 'px'}}
         placeholder="编辑文章..."
+        spellCheck="false"
         value={editBoxContent}
-        onChange={(e) => setEditBoxContent(e.target.value)}>
+        onChange={(e) => handleTextareaChange(e)}>
       </textarea>
-      <div className="dragLine" ref={dragLine}></div>
-      <div className="preview" style={{marginRight: toggleUserMenu ? 0 : '0.5rem'}}>
+      <div className="dragLine" ref={dragLine} style={{background: dragLineBgc}} />
+      <div className="preview">
         <ReactMarkdown source={editBoxContent} />
       </div>
+      <button
+        className="button-common buttom-icon button-submit"
+        title="提交"
+        onClick={() => setDialogBoxDisplay(true)}>
+        <svg
+          className="icon"
+          aria-hidden="true">
+          <use xlinkHref="#icon-upload" />
+        </svg>
+      </button>
     </div>
   );
 }
 
 export default connect(
   state => ({
-    lockingDocMenu: state.menu.lockingDocMenu,
-    toggleDocMenu: state.menu.toggleDocMenu,
-    lockingUserMenu: state.menu.lockingUserMenu,
-    toggleUserMenu: state.menu.toggleUserMenu
+    lockingMenu: state.menu.lockingMenu,
+    toggleMenu: state.menu.toggleMenu,
+    versionNumber: state.versionNumber,
+    userMessage: state.userMessage,
+    ducumentMessage: state.documentMessage
   })
 )(Edit);

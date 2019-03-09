@@ -1,0 +1,20 @@
+.layer-container {
+  position: fixed;
+  width: 100vw;
+  height: calc(100vh - 3rem);
+  top: 3rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  z-index: 20;
+  transition: left 0.5s;
+
+  .icon-close {
+    position: absolute;
+    top: 0.5rem;
+    color: #fff;
+    transition: color 0.3s;
+    &:hover {
+      color: #ddd;
+    }
+  }
+}

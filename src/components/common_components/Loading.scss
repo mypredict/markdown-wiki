@@ -2,14 +2,10 @@
   position: fixed;
   top: 40%;
   left: 50%;
+  width: 4rem;
+  height: 4rem;
   transform: translate(-50%, -50%);
-  width: 5rem;
-  height: 5rem;
-  line-height: 5rem;
-  text-align: center;
   color: #da8507;
-  font-size: 1.5rem;
-  background: #eee;
   border-radius: 50%;
   z-index: 20;
 
@@ -20,7 +16,7 @@
     left: 50%;
     border-radius: 50%;
     background: #aaa;
-    transform-origin: 0 2.5rem;
+    transform-origin: 0 2rem;
     animation: rotate 1.5s infinite ease;
 
     &:nth-child(1) {

@@ -1,11 +1,29 @@
 export default {
   menu: {
-    lockingDocMenu: false,
-    toggleDocMenu: false,
-    lockingUserMenu: false,
-    toggleUserMenu: false
+    lockingMenu: false,
+    toggleMenu: false
   },
-  container: {
-    type: 'close'
+  layerContainer: {
+    display: false
+  },
+  versionNumber: 1,
+  userMessage: {
+    _id: null,
+    documents: [],
+    id: '',
+    name: '',
+    email: '',
+    avatar_url: '',
+    created: null,
+    updatedAt: null
+  },
+  documentMessage: {
+    _id: null,
+    users: [],
+    files: [],
+    name: '加入 | 创建一个文档吧',
+    joinURL: '',
+    created: null,
+    updated: null
   }
 }

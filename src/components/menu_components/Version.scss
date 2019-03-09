@@ -1,0 +1,16 @@
+.version-page {
+  width: 50%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 10px;
+  background: #fff;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  .version-message {
+    display: flex;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+  }
+}

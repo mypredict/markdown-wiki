@@ -1,4 +1,4 @@
-.menu {
+.menu-page {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -10,9 +10,11 @@
   padding: 2rem 0;
   background-color: #fff;
   box-sizing: border-box;
-  z-index: 100;
+  z-index: 90;
   user-select: none;
-  transition: left 0.3s, right 0.3s;
+  transition: left 0.3s;
+  left: calc(-5rem + 1px);
+  border-right: 2px solid #eee;
 
   menu.menu-container {
     display: flex;
@@ -22,36 +24,23 @@
     margin: 0;
     padding: 0;
 
-    span {
+    a {
       margin-bottom: 2rem;
+    }
+
+    a.active {
+      .icon-active {
+        color: #33a3a2;
+      }
     }
   }
 }
 
-.doc-menu {
+.hover-menu {
   left: calc(-5rem + 1px);
   border-right: 2px solid #eee;
 
   &:hover {
     left: 0;
   }
-}
-
-.hover-doc-menu {
-  left: calc(-5rem + 1px);
-  border-right: 2px solid #eee;
-}
-
-.user-menu {
-  right: calc(-5rem + 1px);
-  border-left: 2px solid #eee;
-
-  &:hover {
-    right: 0;
-  }
-}
-
-.hover-user-menu {
-  right: calc(-5rem + 1px);
-  border-left: 2px solid #eee;
 }

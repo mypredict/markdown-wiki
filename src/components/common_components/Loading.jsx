@@ -10,7 +10,6 @@ function Loading (props) {
       <span></span>
       <span></span>
       <span></span>
-      {100}%
     </div>
   );
 }
