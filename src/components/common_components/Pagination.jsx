@@ -13,7 +13,7 @@ function Pagination (props) {
     callback(0, rowsPerPageOptions);
     setRowsPerPage(rowsPerPageOptions);
     setCountPage(Math.ceil(count / rowsPerPageOptions) || 1);
-  }, []);
+  }, [count, rowsPerPageOptions]);
   
   // 每页行数
   function changeRowsPerPage (e) {
@@ -47,7 +47,6 @@ function Pagination (props) {
   }, [countPage, currentPage, rowsPerPage]);
 
   console.log('pagination');
-
   return (
     <div className="pagination">
       <div className="page-count">
@@ -57,6 +56,7 @@ function Pagination (props) {
           <option>10</option>
           <option>20</option>
           <option>50</option>
+          <option>100</option>
         </select>
       </div>
       <div className="page-skip">

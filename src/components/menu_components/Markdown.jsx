@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import './Markdown.scss';
@@ -22,11 +22,13 @@ function Markdown () {
   }, []);
 
   // 获取文档信息
+  const [ markdownValue, setMarkdownValue ] = useState(sessionStorage.markdown);
   function getDocument (query) {
     fetch(`/getDocument${query}`, { method: 'GET', credentials: 'include' })
       .then(response => response.json())
       .then(data => {
         sessionStorage.setItem('markdown', data.users[data.users.length - 1].content);
+        setMarkdownValue(data.users[data.users.length - 1].content);
       })
       .catch(err => {
         console.log(err);
@@ -41,9 +43,9 @@ function Markdown () {
         readOnly
         className="markdown-grammar"
         spellCheck="false"
-        defaultValue={sessionStorage.markdown} />
+        value={markdownValue} />
       <div className="markdown-preview">
-        <ReactMarkdown source={sessionStorage.markdown} />
+        <ReactMarkdown source={markdownValue} />
       </div>
     </div>
   )
