@@ -43,14 +43,14 @@ function Member (props) {
     });
     setUsersInit(usersSort);
     const rows = Object.keys(usersSort).map((username) => {
-      return [username, moment(usersSort[username].time).format('YYYY-MM-DD HH:MM'), usersSort[username].count];
+      return [username, moment(usersSort[username].time).format('YYYY-MM-DD hh:mm'), usersSort[username].count];
     });
     setTableData({...tableData, rows});
   }, [users]);
 
   function copyLink () {
     const input = document.createElement('input');
-    input.value = `http://localhost:3000/home/?${joinURL}`;
+    input.value = `http://192.168.31.222:3000/home/?${joinURL}`;
     document.body.appendChild(input);
     input.select();
     document.execCommand('copy');
@@ -70,7 +70,7 @@ function Member (props) {
                 <img src={avatar_url} alt="头像" />
                 <ul className="message">
                   <li>个人姓名 : {username}</li>
-                  <li>加入时间 : {usersInit[username] && moment(usersInit[username].time).format('YYYY-MM-DD HH:MM')}</li>
+                  <li>加入时间 : {usersInit[username] && moment(usersInit[username].time).format('YYYY-MM-DD hh:mm')}</li>
                   <li>编辑次数 : {usersInit[username] && usersInit[username].count}</li>
                 </ul>
               </div>

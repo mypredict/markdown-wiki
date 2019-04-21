@@ -30,8 +30,8 @@ function TableList (props) {
     setEndCount(endCount);
   }
 
-  function handleDownload () {
-    console.log(1)
+  function handleDownload (row) {
+    callback(row);
   }
 
   return (
@@ -73,11 +73,11 @@ function TableList (props) {
               {
                 tableOptions.headDownload && (
                   <span style={{flex: 1}}>
-                    <button className="button-common button-download" title="下载文件">
-                      <svg
-                        className="icon icon-download"
-                        aria-hidden="true"
-                        onClick={() => handleDownload()}>
+                    <button
+                      className="button-common button-download"
+                      onClick={() => handleDownload(row)}
+                      title="下载文件">
+                      <svg className="icon icon-download" aria-hidden="true">
                         <use xlinkHref="#icon-download" />
                       </svg>
                     </button>

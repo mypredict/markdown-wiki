@@ -7,4 +7,10 @@
   background: #fff;
   overflow-y: auto;
   box-sizing: border-box;
+
+  span.header {
+    display: flex;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
 }

@@ -23,7 +23,7 @@ function Personal (props) {
   useEffect(() => {
     if (tableData.rows.length < 1) {
       const rows = documents.map((document) => {
-        return [document.joinURL, document.name, moment(document.time).format('YYYY-MM-DD HH:MM')];
+        return [document.joinURL, document.name, moment(document.time).format('YYYY-MM-DD hh:mm')];
       });
       setTableData({...tableData, rows});
     }
@@ -50,6 +50,7 @@ function Personal (props) {
 
   return (
     <div className="personal-page">
+      <span className="header">个人参与过的所有文档</span>
       <TableList
         tableOptions={tableOptions}
         tableData={tableData}

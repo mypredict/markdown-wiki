@@ -22,7 +22,7 @@ function Menu (props) {
     { title: '历史版本', iconName: 'version' },
     { title: '涉及文件', iconName: 'files' },
     { title: '个人信息', iconName: 'personal'},
-    { title: 'markdown语法', iconName: 'markdown' }
+    { title: '语法说明', iconName: 'markdown' }
   ]
 
   function handleLockingMenu () {
@@ -37,13 +37,17 @@ function Menu (props) {
       <menu className="menu-container">
         {
           menuData.map((menu, index) => (
-            <NavLink to={`/home/${menu.iconName}`} title={menu.title} key={index}>
+            <NavLink
+              to={`/home/${menu.iconName}`}
+              title={menu.title}
+              key={index}
+              onClick={() => toggleLayerContainerDisplayCreator(true)}>
               <svg
                 className="icon icon-active"
-                aria-hidden="true"
-                onClick={() => toggleLayerContainerDisplayCreator(true)}>
+                aria-hidden="true">
                 <use xlinkHref={`#icon-${menu.iconName}`} />
               </svg>
+              <span>{menu.title}</span>
             </NavLink>
           ))
         }

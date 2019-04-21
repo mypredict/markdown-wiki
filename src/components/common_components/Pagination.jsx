@@ -46,7 +46,6 @@ function Pagination (props) {
     callback((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
   }, [countPage, currentPage, rowsPerPage]);
 
-  console.log('pagination');
   return (
     <div className="pagination">
       <div className="page-count">

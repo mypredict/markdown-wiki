@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
-import { toggleMenuCreator, userMessageCreator, ducumentMessageCreator } from '../redux/actions';
+import { toggleMenuCreator, userMessageCreator, ducumentMessageCreator, versionNumberCreator } from '../redux/actions';
 import DialogBox from './common_components/DialogBox';
 import Loading from './common_components/Loading';
 import './Header.scss';
@@ -14,9 +14,11 @@ function Header (props) {
     username,
     documentName,
     joinURL,
+    documentVersions,
     toggleMenuCreator,
     userMessageCreator,
-    ducumentMessageCreator
+    ducumentMessageCreator,
+    versionNumberCreator
   } = props;
   const [ loading, setLoading ] = useState(false);
 
@@ -27,7 +29,7 @@ function Header (props) {
     }
     const query = decodeURI(window.location.search);
     // 登陆后通过链接加入文档
-    if (document.cookie && query) {
+    if (document.cookie && query && joinURL === '') {
       joinDocument(query);
     }
     // 登陆后还没有文档信息时从sessionStorage拿
@@ -35,6 +37,10 @@ function Header (props) {
       getDocument(sessionStorage['query']);
     }
   });
+
+  useEffect(() => {
+    versionNumberCreator(documentVersions.length);
+  },[documentVersions]);
 
   // 获取个人信息
   function getUserMessage () {
@@ -123,7 +129,7 @@ function Header (props) {
   }
 
   console.log('header');
-
+  
   return (
     <header className="app-header">
       { loading && <Loading /> }
@@ -143,9 +149,6 @@ function Header (props) {
         </svg>
       </button>
       <span>markdown多人在线编辑</span>
-      {/* <button className="button-common button-create" title="查看未提交的保存">
-        {documentName}
-      </button> */}
       <span>{documentName}</span>
       <button
         className="button-common button-create"
@@ -168,7 +171,7 @@ function Header (props) {
               </div>
             )
             : (
-              <a href={`https://github.com/login/oauth/authorize?client_id=a9a11fbab7c3d5fe46e9&state=${'url'}`} title="github快捷登录">
+              <a href={`https://github.com/login/oauth/authorize?client_id=a9a11fbab7c3d5fe46e9&state=${encodeURIComponent(window.location.search.slice(1))}`} title="github快捷登录">
                 <svg className="icon" aria-hidden="true" style={{color: '#333'}}>
                   <use xlinkHref="#icon-github" />
                 </svg>
@@ -187,11 +190,13 @@ export default connect(
     avatar_url: state.userMessage.avatar_url,
     username: state.userMessage.name,
     documentName: state.documentMessage.name,
-    joinURL: state.documentMessage.joinURL
+    joinURL: state.documentMessage.joinURL,
+    documentVersions: state.documentMessage.users
   }),
   {
     toggleMenuCreator,
     userMessageCreator,
-    ducumentMessageCreator
+    ducumentMessageCreator,
+    versionNumberCreator
   }
 )(Header);

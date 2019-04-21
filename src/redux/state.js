@@ -1,7 +1,7 @@
 export default {
   menu: {
-    lockingMenu: false,
-    toggleMenu: false
+    lockingMenu: true,
+    toggleMenu: true
   },
   layerContainer: {
     display: false

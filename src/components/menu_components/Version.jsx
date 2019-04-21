@@ -22,8 +22,8 @@ function Version (props) {
 
   useEffect(() => {
     if (tableData.rows.length < 1) {
-      const rows = users.map((user) => {
-        return [user.index, user.index, user.name, user.note, moment(user.time).format('YYYY-MM-DD HH:MM')];
+      const rows = users.map((user, index) => {
+        return [index + 1, index + 1, user.name, user.note, moment(user.time).format('YYYY-MM-DD hh:mm')];
       });
       setTableData({...tableData, rows});
     }

@@ -11,7 +11,8 @@ function Login (props) {
     fetch(`${props.location.pathname}${props.location.search}`, {method: 'GET'})
       .then(response => response.text())
       .then(data => {
-        data && props.history.push('/home');
+        const query = decodeURIComponent(props.location.search.split('state=')[1]) || '';
+        data && props.history.push(`/home?${query}`);
       })
       .catch(err => {
         console.log(err)
@@ -28,14 +29,12 @@ function Login (props) {
     fontSize: '1.2rem'
   };
 
-  console.log('login')
-
   return (
     <div className="login-page">
       <Loading />
       <div style={fontStyle}>正在登陆请稍等...</div>
     </div>
-  )
+  );
 }
 
 export default Login;
