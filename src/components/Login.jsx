@@ -7,7 +7,7 @@ function Login (props) {
     login();
   });
 
-  async function login () {
+  function login () {
     fetch(`${props.location.pathname}${props.location.search}`, {method: 'GET'})
       .then(response => response.text())
       .then(data => {

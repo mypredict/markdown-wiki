@@ -28,6 +28,10 @@ function Header (props) {
       getUserMessage();
     }
     const query = decodeURI(window.location.search);
+    // 没有登录有加入链接
+    if (!document.cookie && query) {
+      window.open(`https://github.com/login/oauth/authorize?client_id=a9a11fbab7c3d5fe46e9&state=${encodeURIComponent(window.location.search.slice(1))}`, '_self');
+    }
     // 登陆后通过链接加入文档
     if (document.cookie && query && joinURL === '') {
       joinDocument(query);
@@ -129,7 +133,7 @@ function Header (props) {
   }
 
   console.log('header');
-  
+
   return (
     <header className="app-header">
       { loading && <Loading /> }
@@ -143,7 +147,7 @@ function Header (props) {
           aria-hidden="true"
           style={{
             opacity: lockingMenu ? 1 : 0,
-            rotate: toggleMenu ? '180deg' : '360deg'
+            transform: toggleMenu ? "rotate(180deg)" : "rotate(360deg)"
           }}>
           <use xlinkHref="#icon-controlMenu" />
         </svg>

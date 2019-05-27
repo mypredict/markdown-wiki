@@ -29,6 +29,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-loader": "^8.0.4",
     "node-sass": "^4.11.0",
     "redux-devtools": "^3.5.0",
     "redux-devtools-extension": "^2.13.8",
